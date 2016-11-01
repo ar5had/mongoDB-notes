@@ -366,7 +366,7 @@ Program Code:
 
 ``` js
     var mongo = require("mongodb").MongoClient,
-        // learnyoumongo is db name  here.
+        // learnyoumongo is db name here.
         url = 'mongodb://localhost:27017/learnyoumongo' ;
     mongo.connect(url, function(err, db) {
         if (err) console.error(err);
@@ -380,5 +380,43 @@ Program Code:
 
             }
         }, function(err) { console.error(err); db.close(); });
+    });
+```
+
+## Removing a document from collection
+
+To remove a document, one would need to call remove() on the collection.
+
+Ex.
+
+    collection.remove({
+      name: 'foo'
+    }, callback)
+
+The first argument to remove() is the query.
+
+If your program does not finish executing, you may have forgotten to
+close the db. That can be done by calling db.close() after you
+have finished.
+
+Write a program to remove a document with the given _id.
+
+The database name will be accessible via process.argv[2].
+
+The collection name will be passed as the second argument to your script.
+
+The _id will be passed as the third argument to your script.
+
+``` js
+    var mongo = require("mongodb").MongoClient,
+        // learnyoumongo is db name here.
+        url = 'mongodb://localhost:27017/' + process.argv[2];
+    mongo.connect(url, function(err, db) {
+        if (err) console.error(err);
+        db.collection(process.argv[3])
+            .remove({ _id: process.argv[4]}, function(err) {
+                if (err) throw err;
+                db.close();
+            });
     });
 ```
