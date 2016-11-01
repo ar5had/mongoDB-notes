@@ -1,5 +1,5 @@
 # mongoDB-notes
-simple mongo-db notes
+Reading these notes while doing learnyoumongo exercises will benifit you the most.
 
 ## mongoDB
 MongoDB is a scalable, high-performance, open source NoSQL database. MongoDB is written in C++.
@@ -70,6 +70,7 @@ Code for above search:
             });
     });
 ```
+**NOTE:** mongod should be running ...
 
 For more comparison query operators - visit [here](https://docs.mongodb.com/v3.2/reference/operator/query-comparison/).
 
@@ -221,7 +222,7 @@ Last program but with only name and age properties:
 
 ``` js
     var mongo = require("mongodb").MongoClient,
-        // learnyoumongo is db name  here.
+        // learnyoumongo is db name here.
         url = 'mongodb://localhost:27017/learnyoumongo' ;
     mongo.connect(url, function(err, db) {
         if (err) console.error(err);
@@ -240,3 +241,83 @@ Last program but with only name and age properties:
             });
     });
 ```
+**NOTE:** mongod should be running ...
+
+## Inserting document in a collection
+
+To connect, use the connect() function of MongoClient.
+
+Ex.
+``` js
+    MongoClient.connect(url, function(err, db) {
+      if (err) throw err
+    
+    })
+```
+If you get a Connection Refused error, make sure that mongod is still
+running.
+
+After you have successfully connected, you will need to specify a collection.
+That can be done by calling the collection() function on the db returned
+in the callback to connect.
+
+Say you wanted to specify a collection named users:
+``` js
+    var collection = db.collection('users')
+```
+To insert a document, one would need to call insert() on the collection, like this:
+
+```js    
+    // inserting document
+    // { a : 2 }
+    collection.insert({
+      a: 2
+    }, function(err, data) {
+      // handle error
+    
+      // other operations
+    })
+```
+
+If your program does not finish executing, you may have forgotten to
+close the db. That can be done by calling db.close() after you
+have finished.
+
+
+Program to connect to MongoDB on port 27017.
+You should connect to the database named learnyoumongo and insert
+a document into the docs collection.
+
+The document should be a json document with the following properties:
+
+  * `firstName`
+  * `lastName`
+
+firstName will be passed as the first argument to the lesson.
+
+lastName will be passed as the second argument to the lesson.
+
+Use console.log to print out the object used to create the document.
+
+Make sure you use JSON.stringify convert it to JSON.
+
+Code:
+
+``` js
+    var mongo = require("mongodb").MongoClient,
+        // learnyoumongo is db name  here.
+        url = 'mongodb://localhost:27017/learnyoumongo' ;
+    var obj = {firstName: process.argv[2], lastName: process.argv[3]};
+    mongo.connect(url, function(err, db) {
+        if (err) console.error(err);
+        db.collection("users")
+        .insert(obj, function(err, data) {
+           if (err) console.error(err);
+           console.log(JSON.stringify(obj));
+           db.close();
+        });
+    });
+```
+
+## Updating a document in a collection
+
