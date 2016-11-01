@@ -534,7 +534,7 @@ Other operators used in the $group stage include:
   * `$push`
   * `$addToSet`
 
-# Rounding
+### Rounding
 
 The Number prototype contains a function toFixed(), which accepts the
 number of decimal places you would like to round to, and returns a string
@@ -570,5 +570,24 @@ Use console.log() to print the average price rounded to 2 decimal places
 to stdout after you have found it.
 
 ``` js
-
+    var mongo = require("mongodb").MongoClient,
+        // learnyoumongo is db name here.
+        url = 'mongodb://localhost:27017/learnyoumongo';
+    mongo.connect(url, function(err, db) {
+        if (err) console.error(err);
+        db.collection("prices")
+            .aggregate([
+            { $match: {size: process.argv[2]}},    
+            { $group: {
+                _id: 'aggregate',
+                price: {
+                    $avg: '$price'
+                }
+            }}    
+            ]).toArray(function(err, res) {
+                if (err) console.error(err);
+                console.log(res[0].price.toFixed(2));
+                db.close();
+            });
+    });
 ```
