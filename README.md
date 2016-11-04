@@ -10,7 +10,7 @@ For installation, visit [here](https://docs.mongodb.com).
 
 To verify that mongod is installed, you can try running `mongod --version`.
 
-mongod is the primary daemon process for the MongoDB system. It handles data requests, manages data access, and performs background management operations. This document provides a complete overview of all command line options for mongod.
+mongod is the primary daemon process for the MongoDB system. It handles data requests, manages data access, and performs background management operations.
 
 In multitasking computer operating systems, a daemon is a computer program that runs as a background process, rather than being under the direct control of an interactive user. Traditionally, the process names of a daemon end with the letter d, for clarification that the process is, in fact, a daemon, and for differentiation between a daemon and a normal computer program. For example, syslogd is the daemon that implements the system logging facility, and sshd is a daemon that serves incoming SSH connections.
 
@@ -80,7 +80,7 @@ For more comparison query operators - visit [here](https://docs.mongodb.com/v3.2
 
 A projection can explicitly include several fields. In the following operation, the db.collection.find() method returns all documents that match the query. In the result set, only the name, status and, by default, the _id fields return in the matching documents.
 
-db.users.find( { status: "A" }, { name: 1, status: 1 } )
+    db.users.find( { status: "A" }, { name: 1, status: 1 } )
 The operation returns the following documents:
 
     { "_id" : 2, "name" : "bob", "status" : "A" }
@@ -90,7 +90,7 @@ The operation returns the following documents:
 
 You can remove the _id field from the results by specifying its exclusion in the projection, as in the following example:
 
-db.users.find( { status: "A" }, { name: 1, status: 1, _id: 0 } )
+    db.users.find( { status: "A" }, { name: 1, status: 1, _id: 0 } )
 In the result set, only the name and status fields return in the matching documents:
 
     { "name" : "bob", "status" : "A" }
@@ -100,7 +100,7 @@ In the result set, only the name and status fields return in the matching docume
 
 To exclude a field or multiple fields, instead of listing the fields to include in the matching document, you can use a projection to exclude specific fields as in the following example:
 
-db.users.find( { status: "A" }, { favorites: 0, points: 0 } )
+    db.users.find( { status: "A" }, { favorites: 0, points: 0 } )
 In the result set, the favorites and the points fields do not return in the matching documents:
 
     {
@@ -153,10 +153,10 @@ Use dot notation to suppress specific fields of an embedded document using a 0 i
 
 The following example specifies a projection to exclude the food field inside the favorites document. All other fields are returned in the matching documents:
 
-db.users.find(
-   { status: "A" },
-   { "favorites.food": 0 }
-)
+    db.users.find(
+       { status: "A" },
+       { "favorites.food": 0 }
+    )
 The operation returns the following document:
 
     {
@@ -192,31 +192,32 @@ The operation returns the following document:
        "badges" : [ "black", "blue" ],
        "points" : [ { "points" : 78, "bonus" : 8 }, { "points" : 57, "bonus" : 7 } ]
     }
+    
 ### Projection on Embedded Documents in an Array
 
 Use dot notation to project specific fields inside documents embedded in an array.
 
 The following example specifies a projection to return the name field, status field, and just the bonus field in the documents in the points array. The _id field is returned by default.
 
-db.users.find( { status: "A" }, { name: 1, status: 1, "points.bonus": 1 } )
+    db.users.find( { status: "A" }, { name: 1, status: 1, "points.bonus": 1 } )
 The operation returns the following documents:
 
     { "_id" : 2, "name" : "bob", "status" : "A", "points" : [ { "bonus" : 20 }, { "bonus" : 12 } ] }
     { "_id" : 3, "name" : "ahn", "status" : "A", "points" : [ { "bonus" : 8 }, { "bonus" : 20 } ] }
     { "_id" : 6, "name" : "abc", "status" : "A", "points" : [ { "bonus" : 8 }, { "bonus" : 7 } ] }
-###Project Specific Array Elements in the Returned Array
+### Project Specific Array Elements in the Returned Array
 
 For fields that contain arrays, MongoDB provides the following projection operators: $elemMatch, $slice, and $.
 
 The following example uses the $slice projection operator to return just the last element in the scores array.
 
-db.users.find( { status: "A" }, { name: 1, status: 1, points: { $slice: -1 } } )
+    db.users.find( { status: "A" }, { name: 1, status: 1, points: { $slice: -1 } } )
 The operation returns the following documents:
 
     { "_id" : 2, "name" : "bob", "status" : "A", "points" : [ { "points" : 64, "bonus" : 12 } ] }
     { "_id" : 3, "name" : "ahn", "status" : "A", "points" : [ { "points" : 55, "bonus" : 20 } ] }
     { "_id" : 6, "name" : "abc", "status" : "A", "points" : [ { "points" : 57, "bonus" : 7 } ] }
-$elemMatch, $slice, and $ are the only way to project specific elements to include in the returned array. For instance, you cannot project specific array elements using the array index; e.g. { "ratings.0": 1 } projection will not project the array with the first element.
+`$elemMatch`, `$slice`, and `$` are the only way to project specific elements to include in the returned array. For instance, you cannot project specific array elements using the array index; e.g. { "ratings.0": 1 } projection will not project the array with the first element.
 
 Last program but with only name and age properties:
 
@@ -482,7 +483,7 @@ The two main pipeline stages we will use will be $match and $group.
 
 ### $match
 
-$match is used similar to the way a query is done. It allows us to select
+`$match` is used similar to the way a query is done. It allows us to select
 the documents that meet certain criteria.
 
 Ex.
@@ -494,7 +495,7 @@ property equal to A.
 
 ### $group
 
-$group is what allows us to run operations on certain properties.
+`$group` is what allows us to run operations on certain properties.
 
 So, say we wanted to get the sum of the values of the property value
 where status is equal to A and have it placed in the total property.
