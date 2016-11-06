@@ -607,3 +607,16 @@ to stdout after you have found it.
     To display database, you need to insert at least one document into it.
     
   * To create a collection lets say `cold`, type `db.cold.insert({_id: "temp", temp: "32 C"})`  
+
+## Dropping database
+
+Switch to the database that you want to drop using `use <DATABASE_NAME>` command and then type `db.dropDatabase()` command.
+
+## Showing collections
+
+Switch to database and then type `show collections`
+
+## Dropping collections
+
+type `db.COLLECTION_NAME.drop()`
+
