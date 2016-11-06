@@ -592,3 +592,18 @@ to stdout after you have found it.
             });
     });
 ```
+
+## Creating database
+
+  * Start the mongod daemon in one terminal window.
+  
+  * Open another teminal window and type `mongo` to enter mongo shell.
+  
+  * Type `use <DATABASE_NAME>` to create a database named \<DATABASE_NAME>.
+  
+  * Use `db` to know which database you are in.
+ 
+  * To check databases list, you can use `show dbs`. Note: Your created database will not be present in list.
+    To display database, you need to insert at least one document into it.
+    
+  * To create a collection lets say `cold`, type `db.cold.insert({_id: "temp", temp: "32 C"})`  
