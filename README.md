@@ -618,5 +618,16 @@ Switch to database and then type `show collections`
 
 ## Dropping collections
 
-type `db.COLLECTION_NAME.drop()`
+`db.COLLECTION_NAME.drop()`
 
+## Printing collection
+
+`db["3test"].find()`
+or
+`db.getCollection("3test").find()`
+
+For formated results:
+
+`db.myCollection.find().pretty()`
+
+**Note:**`db.myCollection.find()`method returns a cursor to the results; however, in the mongo shell, if the returned cursor is not assigned to a variable using the var keyword, then the cursor is automatically iterated up to 20 times to print up to the first 20 documents that match the query. 
