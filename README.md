@@ -311,7 +311,7 @@ Code:
     var obj = {firstName: process.argv[2], lastName: process.argv[3]};
     mongo.connect(url, function(err, db) {
         if (err) console.error(err);
-        db.collection("users")
+        db.collection("docs")
         .insert(obj, function(err, data) {
            if (err) console.error(err);
            console.log(JSON.stringify(obj));
